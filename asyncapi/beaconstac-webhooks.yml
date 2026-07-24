@@ -1,0 +1,21 @@
+generated: '2026-07-18'
+method: searched
+source: https://apidocs.uniqode.com/, https://www.uniqode.com/qr-code-generator/api
+spec_type: Webhooks
+# The Uniqode QR Code API documents a webhook management surface (no published AsyncAPI
+# document was found). Individual event-type names are behind the authenticated reference;
+# captured here is the documented webhook capability and its management operations.
+webhooks:
+  supported: true
+  management_operations:
+  - create
+  - list
+  - retrieve
+  - update
+  docs: https://apidocs.uniqode.com/
+  description: >-
+    Webhooks let an application subscribe to Uniqode events (e.g. QR Code scans, form
+    submissions) and receive HTTP callbacks. Webhooks are created, listed, retrieved, and
+    updated via the API. Delivered event-type schemas are documented in the authenticated
+    API reference.
+events: []

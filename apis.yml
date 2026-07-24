@@ -1,7 +1,12 @@
 aid: beaconstac
 name: Beaconstac
-description: 'Beaconstac is a company surfaced as a portfolio company of accel and added to the API Evangelist
-  network as a stub for enrichment. Sector: big-data. This profile is a lead awaiting the enrichment pipeline.'
+description: 'Beaconstac (now Uniqode) is a B2B SaaS platform for creating, customizing, and
+  tracking dynamic QR Codes and Digital Business Cards at scale, connecting physical touchpoints
+  to measurable digital experiences for 50,000+ brands. Its HTTP API lets developers programmatically
+  create 20+ QR Code types (static and dynamic), manage landing pages and forms, retrieve real-time
+  scan analytics (device, location, timing), and configure webhooks. Authentication is a dashboard-issued
+  API token sent in the Authorization header alongside an Organization ID. The company is SOC 2 Type II,
+  ISO 27001:2022, HIPAA, and GDPR compliant. Formerly MobStac / Beaconstac; backed by Accel.'
 url: https://raw.githubusercontent.com/api-evangelist/beaconstac/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,18 +14,110 @@ x-backed-by:
 - accel
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://cdn.prod.website-files.com/6669ecc72092c5122374cf32/6731094d55afbe708065f595_uniqode-opengraph.png
 tags:
 - Company
 - Big Data
-apis: []
+- QR Codes
+- Digital Business Cards
+- Marketing
+- Analytics
+- SaaS
+- Proximity
+apis:
+- name: Uniqode QR Code API
+  description: 'HTTP API to programmatically create custom and dynamic QR Codes (20+ types), manage
+    landing pages and forms, retrieve real-time scan analytics (device, location, timing), and
+    configure webhooks. Token-based authentication via the Authorization header plus an Organization ID.'
+  humanURL: https://apidocs.uniqode.com/
+  baseURL: https://api.uniqode.com/api/2.0/
+  tags:
+  - QR Codes
+  - Analytics
+  - Webhooks
+  - Digital Business Cards
+  properties:
+  - type: Documentation
+    url: https://apidocs.uniqode.com/
+  - type: APIReference
+    url: https://apidocs.uniqode.com/
+  - type: Authentication
+    url: authentication/beaconstac-authentication.yml
+  - type: Webhooks
+    url: asyncapi/beaconstac-webhooks.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/beaconstac-domain-security.yml
 - type: Website
-  url: http://www.mobstac.com
+  url: https://www.uniqode.com
+- type: DeveloperPortal
+  url: https://apidocs.uniqode.com/
+- type: Documentation
+  url: https://apidocs.uniqode.com/
+- type: APIReference
+  url: https://apidocs.uniqode.com/
+- type: Blog
+  url: https://www.uniqode.com/blog
+- type: Support
+  url: https://docs.uniqode.com/
+- type: Pricing
+  url: https://www.uniqode.com/pricing
+- type: SignUp
+  url: https://dashboard.uniqode.com/signup
+- type: Login
+  url: https://dashboard.uniqode.com/
+- type: TermsOfService
+  url: https://www.uniqode.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.uniqode.com/privacy
+- type: GitHubOrganization
+  url: https://github.com/beaconstac
+- type: StatusPage
+  url: https://status.uniqode.com/
+- type: Compliance
+  url: https://www.uniqode.com/security
+- type: TrustCenter
+  url: security/beaconstac-trust-center.yml
+- type: Conformance
+  url: conformance/beaconstac-conformance.yml
+- type: Authentication
+  url: authentication/beaconstac-authentication.yml
+- type: Lifecycle
+  url: lifecycle/beaconstac-lifecycle.yml
+- type: Conventions
+  url: conventions/beaconstac-conventions.yml
+- type: Webhooks
+  url: asyncapi/beaconstac-webhooks.yml
+- type: Packages
+  url: packages/beaconstac-packages.yml
+- type: Components
+  url: components/beaconstac-components.yml
+- type: WellKnown
+  url: well-known/beaconstac-well-known.yml
+- type: LLMsTxt
+  url: llms/beaconstac-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

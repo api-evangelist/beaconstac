@@ -1,0 +1,26 @@
+generated: '2026-07-18'
+method: searched
+source: npm registry search (@uniqode scope)
+# No first-party server-side API client SDK (Python/JS/Go/etc.) was found on npm, PyPI,
+# RubyGems, NuGet, or crates.io for the Uniqode QR Code API — integrations are made
+# directly against the HTTP API. The one first-party published package is a client-side
+# Web Components library for Digital Business Card templates (see also components/).
+packages:
+- language: javascript
+  registry: npm
+  name: "@uniqode/card-templates"
+  url: https://www.npmjs.com/package/@uniqode/card-templates
+  version: 1.0.5
+  install: npm install @uniqode/card-templates
+  repository: https://github.com/uniqode/card-templates
+  description: Universal Web Components library for Digital Business Card templates. Framework-agnostic, customizable, production-ready.
+  kind: web-components
+  official: true
+- language: javascript
+  registry: npm
+  name: uniqode-card-templates
+  url: https://www.npmjs.com/package/uniqode-card-templates
+  install: npm install uniqode-card-templates
+  description: Unscoped mirror of the Universal Web Components digital business card template library.
+  kind: web-components
+  official: true

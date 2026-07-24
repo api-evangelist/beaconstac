@@ -1,0 +1,17 @@
+generated: '2026-07-18'
+method: searched
+source: https://apidocs.uniqode.com/, https://status.uniqode.com/
+versioning:
+  scheme: uri-path
+  current: "2.0"
+  base: https://api.uniqode.com/api/2.0/
+  docs: https://apidocs.uniqode.com/
+deprecation:
+  policy_url: null
+  sunset_header: null
+  notes: No public deprecation/sunset policy documented.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.uniqode.com/
+deprecated_operations: []

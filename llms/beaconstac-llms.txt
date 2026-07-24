@@ -1,0 +1,135 @@
+# Uniqode
+
+> Uniqode (formerly Beaconstac) is a B2B SaaS company that helps businesses connect physical and digital experiences using QR Codes and Digital Business Cards. Trusted by 50,000+ brands worldwide. SOC 2 Type II, GDPR, HIPAA, and ISO 27001:2022 compliant.
+
+- [Website](https://www.uniqode.com)
+- [Blog](https://www.uniqode.com/blog)
+- [Articles](https://www.uniqode.com/articles)
+- [API Documentation](https://apidocs.uniqode.com/)
+- [Pricing](https://www.uniqode.com/pricing)
+- [Security & Compliance](https://www.uniqode.com/security)
+
+## Products
+
+### QR Codes
+[Uniqode QR Code Platform](https://www.uniqode.com/qr-code-generator): Create, customize, and track dynamic QR Codes at scale. Supports 20+ QR Code types including URLs, PDFs, forms, videos, app downloads, menus, and more. Features include custom branding, Smart Rules (conditional routing by device, location, or time), real-time scan analytics, bulk generation, API access, and enterprise-grade security.
+
+- [Free QR Code Generator](https://www.uniqode.com/qr-code-generator): Create static QR Codes for free
+- [Dynamic QR Code Generator](https://www.uniqode.com/dynamic-qr-code-generator): Create editable, trackable QR Codes
+- [QR Code Tracking & Analytics](https://www.uniqode.com/qr-code-tracking): Monitor scans in real time by device, location, and timestamp
+- [QR Code Generator for Enterprise](https://www.uniqode.com/qr-code-generator/for-enterprise): Scalable, secure QR solutions for large organizations
+- [Static vs Dynamic QR Codes](https://www.uniqode.com/qr-code-generator/static-vs-dynamic-qr-codes): Understand when to use each type
+- [Smart Rules](https://www.uniqode.com/blog/qr-code-basics/what-are-smart-qr-codes): Conditional routing from a single QR Code based on device, location, or time
+- [State of QR Codes 2026 Report](https://www.uniqode.com/unique-angles/playbooks/state-of-qr-codes-2026): Original research on QR Code usage, trends, and benchmarks across industries
+
+### Digital Business Cards
+[Uniqode Digital Business Card](https://www.uniqode.com/digital-business-card): Create and share contactless digital business cards via QR Code, URL, Apple Wallet, or Google Wallet. Features include two-way contact sharing (collect recipient details while sharing yours), analytics, CRM integrations, team management, custom branding, and bulk creation.
+
+- [What is a Digital Business Card](https://www.uniqode.com/digital-business-card/what-is-a-digital-business-card): Comprehensive guide
+- [How to Share a Digital Business Card](https://www.uniqode.com/blog/digital-business-card-basics/how-to-send-a-digital-business-card): All sharing methods explained
+- [Apple Wallet Integration](https://www.uniqode.com/blog/digital-business-card-basics/digital-business-card-for-apple-wallet): Add your card to Apple Wallet
+- [Google Wallet Integration](https://www.uniqode.com/blog/digital-business-card-basics/how-to-add-a-digital-business-card-to-google-wallet): Add your card to Google Wallet
+- [Two-Way Contact Sharing](https://www.uniqode.com/blog/digital-business-card-basics/how-to-enable-two-way-contact-sharing-via-digital-business-cards): Collect leads while sharing your card
+- [Digital Business Card Templates](https://www.uniqode.com/digital-business-card/templates): Ready-to-use templates
+- [Digital Business Card Integrations](https://www.uniqode.com/integrations#digital-business-cards): CRM, HR, and marketing tool integrations
+- [Digital Business Card Pricing](https://www.uniqode.com/pricing?product=dbc): Plans and pricing
+
+## Key Concepts
+
+- **Phygital**: Connecting physical customer touchpoints (packaging, signage, printed materials, business cards) to digital destinations using QR Codes and trackable interactions. Turns static assets into measurable data sources.
+- **Smart Rules**: Uniqode-exclusive conditional routing that dynamically redirects users based on device type (iOS vs Android), time of day, location, or scan frequency — all from a single QR Code.
+- **Scan Journey Intelligence**: Visualizing the full user journey after a QR scan, including time, location, device, repeat scans, and downstream behavior via GA4 integration.
+- **Two-Way Contact Sharing**: After sharing your contact information via a digital business card, you can also collect the recipient's details using a built-in lead generation form.
+
+## Key Features
+
+### QR Codes
+- Dynamic QR Codes — edit destination URLs after printing
+- Custom branding — logos, brand colors, custom frames
+- Smart Rules — conditional routing by device, location, time, scan count
+- Real-time analytics — scan timestamp, city, country, device OS, frequency
+- Bulk generation — create thousands of QR Codes at once
+- API integration — programmatic creation, editing, and analytics
+- Form-linked QR Codes — lead capture, surveys, registrations
+- Team collaboration — role-based access control
+- Retargeting — Facebook Pixel and Google Ads integration
+- Enterprise security — SOC 2 Type II, GDPR, HIPAA, ISO 27001, SSO, MFA
+
+### Digital Business Cards
+- Share via QR Code, URL, Apple Wallet, Google Wallet
+- Two-way contact sharing with lead generation forms
+- Analytics — card views by device, time, city; contact saves; new users
+- Custom branding — logos, colors, custom domains
+- Bulk creation and team management
+- Integrations — Azure AD, Google Analytics, Google Ads, Meta, Salesforce, Zapier
+- White-label options with custom domains
+
+## Industries Served
+
+Sales, Marketing, Human Resources, Real Estate, Legal Services, Hospitality, Government, NGOs, Insurance, Healthcare, Retail, Construction, Education, Manufacturing, Consulting, Professional Services
+
+## Use Cases
+
+### QR Codes
+- **Product Packaging**: Manuals, warranty registration, how-to videos, promotional offers
+- **Print Media**: Flyers, brochures, billboards — track offline-to-online conversions
+- **Retail Displays**: Product info, digital coupons, instant mobile checkout
+- **TV & Streaming Ads**: Drive instant traffic to landing pages during commercials
+- **Events**: Attendee check-ins, session tracking, networking via badges and booths
+- **Restaurants**: Dynamic digital menus that change by time of day (breakfast/lunch/dinner)
+- **Hospitality**: Room cards linking to reviews, local guides, WiFi setup
+- **Construction & Manufacturing**: Asset tracking, maintenance history, safety documentation
+- **Healthcare**: Consent forms, telehealth, appointment booking, follow-up resources
+- **Education**: QR Codes on textbooks linking to videos, worksheets, updated content
+
+### Digital Business Cards
+- **Sales & Partnerships**: Share and update contact info centrally
+- **Event Networking**: Share cards via QR Code or wallet at trade shows
+- **Email Signatures**: Embed QR Code linking to your digital card
+- **Virtual Meetings**: Add card QR Code to video call backgrounds
+- **Contact Management**: Centrally manage leads collected from events
+- **Sustainable Networking**: Eliminate paper business cards
+- **HR Onboarding**: Centrally manage employee digital business cards across the organization
+- **Real Estate**: Share listings, contact details, and appointment links
+- **Campaign Integration**: Link cards to landing pages or product videos
+
+## Customer Stories
+
+- [Flipkart](https://www.uniqode.com/customer-stories/flipkart): 2M+ scans from TV ads during Big Billion Days
+- [BBQGuys](https://www.uniqode.com/customer-stories/bbqguys): 1925% increase in engagement via direct mail QR Codes
+- [PatientPoint](https://www.uniqode.com/customer-stories/patientpoint): 207,618 interactions across 2,300+ healthcare facilities
+- [Marriott Aruba](https://www.uniqode.com/customer-stories/marriott-aruba): 80,000+ contactless guest engagements
+- [Mr Apple](https://www.uniqode.com/customer-stories/mr-apple): 50%+ website traffic from product sticker QR Codes
+- [M+](https://www.uniqode.com/customer-stories/mplus): 148,000+ content interactions at Hong Kong museum
+- [Lionsgate](https://www.uniqode.com/customer-stories/lionsgate): 12,000+ engagements across 65 cities from movie posters
+- [Maesa](https://www.uniqode.com/customer-stories/maesa): Prevented $10M+ in losses via compliance QR Codes on 15M units
+- [General Dynamics](https://www.uniqode.com/customer-stories/general-dynamics-electric-boat): 95% increase in recruitment document uploads
+- [Sportsthread](https://www.uniqode.com/customer-stories/sportsthread): 1M+ app downloads via venue QR Codes
+- [Polycor](https://www.uniqode.com/customer-stories/polycor): Eliminated paper business cards, improved sustainability
+- [Tactile Images](https://www.uniqode.com/customer-stories/tactile-images): 90% increase in engagement for visually impaired users across 150+ countries
+- [All Customer Stories](https://www.uniqode.com/customer-stories)
+
+## Blog & Learning Resources
+
+- [Uniqode Blog](https://www.uniqode.com/blog): Guides, tips, and trends on QR Codes and digital business cards
+- [QR Code FAQ](https://www.uniqode.com/blog/qr-code-basics/qr-code-faq): Common questions answered
+- [QR Code Generator Buying Guide](https://www.uniqode.com/blog/qr-code-buying-guide/how-to-select-the-best-qr-code-generator): Objective comparison of QR Code generators
+- [Free vs Paid QR Code Generators](https://www.uniqode.com/blog/qr-code-buying-guide/qr-code-generators-paid-vs-free): When to upgrade
+- [QR Code Tracking with Google Analytics](https://www.uniqode.com/blog/qr-code-tracking/google-analytics): Integration guide
+- [How to Create Bulk QR Codes](https://www.uniqode.com/blog/qr-code-management/bulk-qr-code): Bulk generation guide
+- [QR Code Sizing Best Practices](https://www.uniqode.com/blog/qr-code-best-practices/how-to-perfectly-size-your-qr-codes): Sizing for scan distance and print
+- [QR Code Customization](https://www.uniqode.com/blog/qr-code-customization/how-to-create): Logos, colors, and frames
+- [Are QR Codes Safe?](https://www.uniqode.com/blog/qr-code-security/how-to-check-if-a-qr-code-is-safe): Security best practices
+- [Benefits of Digital Business Cards](https://www.uniqode.com/blog/digital-business-card-basics/benefits-of-digital-business-cards): Why go digital
+- [Digital Business Card Security](https://www.uniqode.com/blog/digital-business-card-basics/are-digital-business-cards-safe): Data safety and compliance
+- [White Label Digital Business Cards](https://www.uniqode.com/blog/digital-business-card-for-businesses/white-label-digital-business-card): Custom domain branding
+- [Lead Generation at Events](https://www.uniqode.com/blog/virtual-business-card/the-only-guide-you-need-to-generate-leads-at-events): Using digital cards for lead capture
+
+## Company
+
+- [About Uniqode](https://www.uniqode.com/about): Mission, story, and vision
+- [AI Information Page](https://www.uniqode.com/about/ai-info): Official company information optimized for AI/LLM consumption
+- [Careers](https://careers.uniqode.com/jobs): Open positions
+- [Schedule a Demo](https://www.uniqode.com/schedule-demo): Talk to the team
+- [Legal: Terms & Privacy](https://www.uniqode.com/legal): Terms of Service and Privacy Notice
+- [Security & Compliance](https://www.uniqode.com/security): SOC 2 Type II, GDPR, HIPAA, ISO 27001:2022, SSO, MFA, 99.9% uptime

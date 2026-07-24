@@ -1,0 +1,19 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.npmjs.com/package/@uniqode/card-templates
+# Client-side / embeddable UI components published by Uniqode. Distinct from server SDKs.
+families:
+- family: Digital Business Card Templates
+  kind: web-components
+  description: Framework-agnostic Web Components library for rendering and customizing Uniqode Digital Business Card templates in any web app.
+  loaders:
+  - registry: npm
+    name: "@uniqode/card-templates"
+    install: npm install @uniqode/card-templates
+    version: 1.0.5
+    url: https://www.npmjs.com/package/@uniqode/card-templates
+  - registry: npm
+    name: uniqode-card-templates
+    install: npm install uniqode-card-templates
+    url: https://www.npmjs.com/package/uniqode-card-templates
+  official: true

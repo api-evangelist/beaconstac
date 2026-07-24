@@ -1,0 +1,34 @@
+generated: '2026-07-18'
+method: searched
+source: https://apidocs.uniqode.com/, https://www.uniqode.com/qr-code-generator/api
+# Cross-cutting request/response semantics captured from the published API documentation.
+# No OpenAPI is available, so fields not documented publicly are left null rather than guessed.
+authentication:
+  style: api-key
+  header: Authorization
+  format: "Token <API_KEY>"
+  additional: Organization ID required alongside the token
+  ref: authentication/beaconstac-authentication.yml
+versioning:
+  style: uri-path
+  current: "2.0"
+  base: https://api.uniqode.com/api/2.0/
+  ref: lifecycle/beaconstac-lifecycle.yml
+idempotency:
+  supported: null
+  notes: No idempotency-key contract is documented in the public API reference.
+pagination:
+  style: null
+  notes: Documented list endpoints exist (QR Codes, landing pages, forms) but the pagination scheme is not published outside the authenticated reference.
+webhooks:
+  supported: true
+  operations: [create, list, retrieve, update]
+  ref: asyncapi/beaconstac-webhooks.yml
+request_tracing:
+  header: null
+rate_limiting:
+  signaled: null
+  notes: No public rate-limit headers or quotas documented.
+error_envelope:
+  format: null
+  notes: No public error schema / RFC 9457 problem+json confirmed.
