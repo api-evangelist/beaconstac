@@ -1,7 +1,41 @@
-generated: '2026-07-18'
-method: searched
-source: live probes of /.well-known/* on Uniqode hosts
+generated: '2026-08-13'
+method: probed
+source: live probes of /.well-known/* across every Uniqode host in apis.yml
+# Round 2 (2026-08-13) found real /.well-known documents that round 1 missed, because
+# round 1 only probed the API + marketing hosts. The OAuth/OIDC discovery surface lives on
+# the MCP server host (mcp.uniqode.com) and the Auth0-backed custom identity domain
+# (auth.uniqode.com), both of which serve genuine RFC 8414 / RFC 9728 / OIDC documents.
 hosts:
+- host: https://mcp.uniqode.com
+  documents:
+  - path: /.well-known/oauth-protected-resource   # RFC 9728
+    status: 200
+    content_type: application/json
+    file: beaconstac-oauth-protected-resource.json
+    note: >-
+      Real protected-resource metadata for the Uniqode MCP server. Names
+      https://auth.uniqode.com/ as the authorization server and publishes the MCP scope set.
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://auth.uniqode.com
+  documents:
+  - path: /.well-known/oauth-authorization-server  # RFC 8414
+    status: 200
+    content_type: application/json
+    file: beaconstac-oauth-authorization-server.json
+  - path: /.well-known/openid-configuration        # OIDC Discovery
+    status: 200
+    content_type: application/json
+    file: beaconstac-openid-configuration.json
+  - path: /.well-known/jwks.json
+    status: 200
+    note: Referenced by the discovery documents; not mirrored here (rotating key material).
 - host: https://api.uniqode.com
   documents:
   - path: /.well-known/security.txt
@@ -14,10 +48,65 @@ hosts:
     status: 404
   - path: /.well-known/ai-plugin.json
     status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
 - host: https://www.uniqode.com
   documents:
   - path: /.well-known/security.txt
     status: 403
+    note: Edge returns a 403 XML error document for every /.well-known/* path on the marketing host.
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
   - path: /llms.txt
     status: 200
     file: ../llms/beaconstac-llms.txt
+    note: Not a /.well-known path; recorded here because it is the one AI-discovery document on this host.
+- host: https://apidocs.uniqode.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://docs.uniqode.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain
+    accepted: false
+    note: >-
+      REJECTED — not Uniqode's document. The body is Intercom's security.txt
+      (Contact bugcrowd.com/intercom, Canonical https://app.intercom.com/.well-known/security.txt),
+      served because docs.uniqode.com is an Intercom-hosted help center. No SecurityTxt or
+      Security pointer is emitted from it; a third party's disclosure program is not Uniqode's.
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: https://dashboard.uniqode.com
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    accepted: false
+  - path: /.well-known/agent.json
+    status: 200
+    accepted: false
+  - path: /.well-known/security.txt
+    status: 200
+    accepted: false
+  - path: /.well-known/openid-configuration
+    status: 200
+    accepted: false
+  - path: /.well-known/api-catalog
+    status: 200
+    accepted: false
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    accepted: false
+    note: >-
+      ALL REJECTED — the dashboard is an Angular single-page app whose catch-all route answers
+      HTTP 200 with the same `<!doctype html>` shell for every /.well-known/* path, including
+      paths that cannot exist. None of these are documents; none are counted.

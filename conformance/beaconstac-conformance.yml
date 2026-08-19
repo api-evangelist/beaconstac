@@ -1,28 +1,93 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: searched
-source: https://www.uniqode.com/security, https://trust.uniqode.com/, https://www.uniqode.com/llms.txt
-# Published compliance posture (searched) plus cross-cutting standards derived from the
-# documented API surface. No OpenAPI is published, so API-shape standards are asserted
-# only where the docs make them explicit.
+source: >-
+  https://www.uniqode.com/security, https://trust.uniqode.com/, https://www.uniqode.com/llms.txt,
+  https://auth.uniqode.com/.well-known/openid-configuration,
+  https://mcp.uniqode.com/.well-known/oauth-protected-resource,
+  https://apidocs.uniqode.com/
+# Published compliance posture (searched) plus cross-cutting standards, several of which moved
+# from false to true this round because the MCP/identity surface was discovered. Uniqode still
+# publishes no OpenAPI, so API-shape standards are asserted only where a probed document or the
+# provider's own reference makes them explicit.
 standards:
+- id: soc2-type1
+  conforms: true
+  evidence: "SOC 2 Type I listed in Uniqode's own certification set on trust.uniqode.com"
 - id: soc2-type2
   conforms: true
-  evidence: "SOC 2 Type II report/attestation published on trust.uniqode.com and /security"
+  evidence: "SOC 2 Type II report published on trust.uniqode.com; renewed 2026-02-02"
 - id: iso-27001
   conforms: true
-  evidence: "ISO 27001:2022 certificate published on trust.uniqode.com"
+  evidence: "ISO 27001:2022 certificate published on trust.uniqode.com; renewed 2026-02-02"
 - id: hipaa
   conforms: true
-  evidence: "HIPAA BAA, DPA, and audit report published on trust.uniqode.com"
+  evidence: "HIPAA BAA, DPA and audit report published on trust.uniqode.com; renewed 2026-02-02"
 - id: gdpr
   conforms: true
-  evidence: "GDPR compliance stated on /security and llms.txt"
-- id: oauth2
-  conforms: false
-  evidence: "API uses a static Authorization token header + Organization ID, not OAuth2"
-- id: rfc9457-problem-details
-  conforms: false
-  evidence: "No published OpenAPI / error schema confirming application/problem+json"
+  evidence: "GDPR and UK GDPR compliance published on /security, llms.txt and trust.uniqode.com"
 - id: saml-sso
   conforms: true
   evidence: "SSO via SAML with role-based access control documented on /security"
+- id: oauth2
+  conforms: true
+  evidence: >-
+    https://auth.uniqode.com/.well-known/oauth-authorization-server returns a valid RFC 8414
+    authorization-server metadata document (authorize/token/revoke/device endpoints, PKCE S256).
+    NOTE: this covers the MCP + dashboard identity surface only — the REST API at
+    api.uniqode.com uses a static account token and has no OAuth flow.
+- id: rfc8414-as-metadata
+  conforms: true
+  evidence: well-known/beaconstac-oauth-authorization-server.json (HTTP 200)
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: >-
+    https://mcp.uniqode.com/.well-known/oauth-protected-resource returns resource +
+    authorization_servers + scopes_supported + bearer_methods_supported (HTTP 200)
+- id: oidc-discovery
+  conforms: true
+  evidence: well-known/beaconstac-openid-configuration.json (HTTP 200, issuer https://auth.uniqode.com/)
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: "registration_endpoint https://auth.uniqode.com/oidc/register advertised in discovery"
+- id: rfc6750-bearer-token
+  conforms: true
+  evidence: >-
+    Probed 401 from mcp.uniqode.com/mcp carries a conforming
+    'WWW-Authenticate: Bearer error="invalid_token" ...' challenge
+- id: mcp
+  conforms: true
+  evidence: "Hosted MCP server probed at https://mcp.uniqode.com/mcp (HTTP transport, OAuth-gated)"
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: >-
+    No security.txt on any Uniqode-controlled host. The 200 at docs.uniqode.com is Intercom's
+    document (Canonical https://app.intercom.com/.well-known/security.txt), not Uniqode's.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Observed error bodies are {"detail": "..."} (DRF) on the REST API and
+    {"error","error_description"} (OAuth) on MCP; neither is application/problem+json
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: "No Sunset/Deprecation header or deprecation policy is published; the one deprecated
+    resource is announced in reference prose only"
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI/Swagger document at any probed location on api.uniqode.com or apidocs.uniqode.com.
+    The machine-readable contract Uniqode does publish is a Postman Collection v2.1
+    (96 requests) — captured in collections/
+- id: postman-collection-v2
+  conforms: true
+  evidence: collections/beaconstac-uniqode-api.postman_collection.json (published at apidocs.uniqode.com)
+- id: asyncapi
+  conforms: false
+  evidence: "Webhook event catalogue is published in prose; no AsyncAPI document exists"
+- id: idempotency
+  conforms: false
+  evidence: "No idempotency-key contract anywhere in the public surface"
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json probed on six hosts — 404 or 403
+    everywhere except the dashboard SPA, which answers 200 with an HTML shell for every path

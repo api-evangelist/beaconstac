@@ -1,6 +1,6 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: probed
-source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts (+ the MCP/identity hosts found in round 2)
 hosts:
 - host: www.uniqode.com
   https: true
@@ -11,7 +11,7 @@ hosts:
 - host: apidocs.uniqode.com
   https: true
   tls_version: TLSv1.3
-  cert_expires: Sep  6 02:05:42 2026 GMT
+  cert_expires: Nov  5 03:47:52 2026 GMT
   hsts: true
   hsts_max_age: 31536000
 - host: api.uniqode.com
@@ -19,6 +19,31 @@ hosts:
   tls_version: TLSv1.2
   cert_expires: Nov  4 23:59:59 2026 GMT
   hsts: null
+  note: >-
+    The API host is the ONLY Uniqode host probed that serves no HSTS and still negotiates
+    TLS 1.2 as its top protocol — weaker than the marketing, docs, dashboard and identity hosts,
+    all of which reach TLS 1.3.
+- host: mcp.uniqode.com
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Dec  1 23:59:59 2026 GMT
+  hsts: false
+  role: hosted MCP server (uvicorn), OAuth-protected
+- host: auth.uniqode.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 26 15:24:09 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  role: OAuth 2.0 / OIDC authorization server (Auth0 custom domain)
+- host: dashboard.uniqode.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 22 00:06:44 2026 GMT
+  hsts: true
+  hsts_max_age: 31556926
+  role: application dashboard (Angular SPA)
 domains:
 - domain: uniqode.com
   dnssec: true

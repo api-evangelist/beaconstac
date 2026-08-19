@@ -1,0 +1,52 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.uniqode.com/en/articles/6064771-getting-started-with-static-and-dynamic-qr-code-api
+docs: https://docs.uniqode.com/en/articles/6064771-getting-started-with-static-and-dynamic-qr-code-api
+# Uniqode publishes per-plan rate limits AND monthly usage quotas in the developer help-center
+# article, verbatim below. It publishes NOTHING about the runtime signal — no rate-limit response
+# headers, no documented 429 behaviour, no Retry-After contract — which is the part an agent
+# actually needs at call time.
+limit_count: 3
+scope_model: per-account (limits attach to the subscription plan, not to an individual API key)
+limits:
+- scope: per-account
+  plan: Pro
+  limit: 10
+  unit: requests
+  window: 1s
+  quota: 250000
+  quota_window: 1mo
+- scope: per-account
+  plan: Plus
+  limit: 25
+  unit: requests
+  window: 1s
+  quota: 500000
+  quota_window: 1mo
+- scope: per-account
+  plan: Business+
+  limit: 100
+  unit: requests
+  window: 1s
+  quota: 2000000
+  quota_window: 1mo
+entitlement:
+  api_available_from_plan: Pro
+  note: >-
+    "Uniqode API is available to users on the Pro plan and above." Free, Starter and Lite plans
+    have no API entitlement, so they have no rate limit because they have no access.
+response_headers:
+  documented: false
+  observed: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is documented, and none could be observed
+    anonymously — every unauthenticated request to api.uniqode.com returns 401 before any
+    throttling layer is reached. An agent cannot discover its remaining budget at runtime.
+exhaustion:
+  status_code: null
+  body: null
+  note: The status code and body returned on limit exhaustion are not published.
+mcp_server:
+  endpoint: https://mcp.uniqode.com/mcp
+  limits_documented: false
+  note: No rate limits are published for the hosted MCP server.

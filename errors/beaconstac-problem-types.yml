@@ -1,0 +1,70 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live probes of https://api.uniqode.com/ and https://mcp.uniqode.com/mcp;
+  https://apidocs.uniqode.com/ (published Postman collection)
+format: non-standard
+rfc9457: false
+# Uniqode publishes NO error reference. The published collection carries zero saved example
+# responses (0 of 96 requests), and the only statement about errors in the whole public surface
+# is "uses standard HTTP response codes". Everything below was either OBSERVED on a live
+# anonymous request or read verbatim from the provider's docs. No error is invented, and no
+# status code is listed that was not actually seen or documented.
+envelopes:
+- surface: REST API (api.uniqode.com)
+  shape: '{"detail": "<message>"}'
+  content_type: application/json
+  framework: Django REST Framework default
+  fields: [detail]
+  machine_readable_code: false
+  note: A single human-readable string. No error code, no type URI, no field-level errors.
+- surface: MCP server (mcp.uniqode.com)
+  shape: '{"error": "<code>", "error_description": "<message>"}'
+  content_type: application/json
+  fields: [error, error_description]
+  machine_readable_code: true
+  note: OAuth 2.0 error shape (RFC 6750), accompanied by a WWW-Authenticate challenge header.
+problems:
+- status: 401
+  surface: REST API
+  observed: true
+  observed_at: '2026-08-13'
+  request: GET https://api.uniqode.com/
+  title: Authentication credentials were not provided
+  body: '{"detail": "Authentication credentials were not provided."}'
+  remediation: >-
+    Send an `Authorization: Token <API_KEY>` header. The key is issued in the API section of the
+    Uniqode dashboard and requires a Pro plan or above.
+- status: 401
+  surface: MCP server
+  observed: true
+  observed_at: '2026-08-13'
+  request: POST https://mcp.uniqode.com/mcp {"jsonrpc":"2.0","id":1,"method":"tools/list"}
+  type: invalid_token
+  title: Authentication required
+  body: '{"error": "invalid_token", "error_description": "Authentication required"}'
+  headers:
+    www-authenticate: >-
+      Bearer error="invalid_token", error_description="Authentication required",
+      resource_metadata="https://mcp.uniqode.com/.well-known/oauth-protected-resource"
+  remediation: >-
+    Complete the OAuth authorization-code flow against https://auth.uniqode.com/ and present the
+    bearer token in the Authorization header. See scopes/beaconstac-scopes.yml.
+- status: 404
+  surface: REST API
+  observed: true
+  observed_at: '2026-08-13'
+  title: Not Found
+  body: HTML — "The requested resource was not found on this server."
+  note: >-
+    Unknown paths return an HTML 404 body, not JSON, so a client that assumes JSON on every
+    response will fail to parse a mistyped path.
+documented_but_unenumerated:
+- statement: '"uses standard HTTP response codes, authentication, and verbs"'
+  source: https://apidocs.uniqode.com/ (collection description)
+  note: The only error contract Uniqode publishes. No list of codes, no per-operation error set.
+gaps:
+- No error code registry, no per-operation error responses, no field-level validation error shape.
+- The two surfaces use two incompatible error envelopes with no shared code vocabulary.
+- The 429 (rate-limit exhaustion) response is undocumented even though per-plan limits are published.
+- Bulk CSV validation endpoints exist (/csv-validation/) but their failure payload is not published.

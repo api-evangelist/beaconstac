@@ -1,0 +1,53 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.uniqode.com/product-updates
+url: https://www.uniqode.com/product-updates
+title: What's new at Uniqode
+# Uniqode publishes a dated "What's new" feed, but it is a MARKETING product-updates feed, not an
+# API changelog: there is no version column, no breaking-change marking, and no entry tied to an
+# api.uniqode.com endpoint. It carries an "API" topic filter, so API-affecting entries exist in
+# principle. Only entries actually present in the served HTML are recorded; the feed is a
+# client-paginated Webflow CMS collection (24 pages), so this is the first page, not the history.
+scheme:
+  versioned: false
+  dated: true
+  breaking_changes_marked: false
+  rss: false
+  api_scoped: false
+  topics: [Feature of The Month, QR Codes, Cards, Monthly Product Updates, Digital Business Card,
+    Linkpage, FAQs, Landing Page, QR Code Types, Campaign Settings, Design Customizations,
+    Integrations and Automations, Account Management, Security and Compliance,
+    Analytics and Reporting, API, Advanced Features and Customization, Forms]
+current_version: "2.0"
+current_version_note: The API version is fixed at 2.0 in the URI path; the feed never references it.
+entries:
+- date: '2024-08-14'
+  title: 'Uniqode product updates: July 2024 (QR Codes)'
+  topics: [Monthly Product Updates]
+  breaking: false
+- date: '2024-07-16'
+  title: Your QR Codes, your notes
+  topics: [Feature of The Month, QR Codes]
+  summary: Rich notes can be added to campaigns in Step 4.
+  breaking: false
+- date: '2024-07-10'
+  title: 'Uniqode product updates: May 2024 (QR Codes)'
+  topics: [Monthly Product Updates]
+  breaking: false
+- date: '2024-05-07'
+  title: 'Uniqode product updates: February 2024 (QR Codes)'
+  topics: [Monthly Product Updates]
+  breaking: false
+entry_count: 4
+observations:
+- >-
+  The feed is sorted "Newest" by default and the newest server-rendered entry is dated
+  2024-08-14 — roughly two years before this capture, and after which Uniqode has shipped an
+  MCP connector and an AI assistant (announced 2026-07-30 by press release, not here).
+  Recorded as observed; the remaining 23 CMS pages load client-side and were not enumerated.
+- >-
+  Security and compliance changes ARE dated and current, but they are published on the trust
+  portal (trust.uniqode.com, latest announcement 2026-02-02), not in this feed.
+related:
+- security/beaconstac-trust-center.yml
+- lifecycle/beaconstac-lifecycle.yml

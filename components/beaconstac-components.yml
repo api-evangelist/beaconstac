@@ -1,19 +1,66 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: searched
-source: https://www.npmjs.com/package/@uniqode/card-templates
-# Client-side / embeddable UI components published by Uniqode. Distinct from server SDKs.
+source: >-
+  https://registry.npmjs.org/@uniqode%2Fcard-templates,
+  https://registry.npmjs.org/uniqode-card-templates,
+  https://registry.npmjs.org/mobstac-awesome-qr
+# Client-side / embeddable UI components published by Uniqode. Distinct from server SDKs
+# (of which there are none — see packages/beaconstac-packages.yml).
 families:
 - family: Digital Business Card Templates
   kind: web-components
-  description: Framework-agnostic Web Components library for rendering and customizing Uniqode Digital Business Card templates in any web app.
+  description: Framework-agnostic Web Components library for rendering and customizing Uniqode
+    Digital Business Card templates in any web app.
+  official: true
   loaders:
   - registry: npm
     name: "@uniqode/card-templates"
     install: npm install @uniqode/card-templates
     version: 1.0.5
+    published: '2026-01-20'
     url: https://www.npmjs.com/package/@uniqode/card-templates
   - registry: npm
     name: uniqode-card-templates
     install: npm install uniqode-card-templates
+    version: 1.1.0
+    published: '2026-08-04'
     url: https://www.npmjs.com/package/uniqode-card-templates
+    note: Unscoped mirror; currently AHEAD of the scoped package.
+- family: QR Code rendering
+  kind: js-library
+  description: The QR rendering engine behind Uniqode's design options — data patterns, eye-ball
+    and eye-frame shapes, gradients, logos, background images and frames. The same attribute
+    vocabulary the QRCode/QRCodeTemplate API objects accept.
   official: true
+  loaders:
+  - registry: npm
+    name: mobstac-awesome-qr
+    install: npm install mobstac-awesome-qr
+    version: 4.2.2
+    published: '2025-12-18'
+    url: https://www.npmjs.com/package/mobstac-awesome-qr
+    repository: https://github.com/mobstac/mobstac-awesome-qr
+  ref: data-model/beaconstac-data-model.yml
+- family: Ohana Design System
+  kind: design-system
+  description: Uniqode's internal component/design system, published publicly on npm.
+  official: true
+  loaders:
+  - registry: npm
+    name: ohana-design-system
+    install: npm install ohana-design-system
+    version: 2.0.0
+    published: '2024-11-13'
+    url: https://www.npmjs.com/package/ohana-design-system
+hosted_surfaces:
+- name: Generate Widget
+  url: https://generate-wiget-v2.uniqode.com/js/url-data-processing.js
+  kind: hosted-script
+  description: A Uniqode-hosted script loaded by the marketing site's QR generator. Observed in
+    the page source of https://www.uniqode.com/pricing; no public documentation or install
+    instructions are published for it, so it is recorded as observed, not as a supported product.
+  official: true
+  documented: false
+notes:
+- No React/Vue/Angular wrapper packages are published for the Web Components library.
+- The card-templates source repository (github.com/uniqode/card-templates) returns 404.

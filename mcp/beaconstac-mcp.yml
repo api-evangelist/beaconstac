@@ -1,0 +1,68 @@
+generated: '2026-08-13'
+method: probed
+status: published
+source: https://mcp.uniqode.com/mcp
+docs: https://www.prnewswire.com/news-releases/uniqode-launches-una-an-ai-assistant-to-improve-qr-campaign-performance-302838490.html
+# Uniqode ships a REAL hosted, remote MCP server. Established by direct probe, not by claim:
+#   POST https://mcp.uniqode.com/mcp  ->  HTTP 401 with
+#     WWW-Authenticate: Bearer error="invalid_token", error_description="Authentication required",
+#                       resource_metadata="https://mcp.uniqode.com/.well-known/oauth-protected-resource"
+#     Server: uvicorn
+#   GET  https://mcp.uniqode.com/.well-known/oauth-protected-resource -> HTTP 200 (real RFC 9728 doc)
+# The server is OAuth-protected, so tools/list and initialize both return 401 anonymously and
+# the live tool schemas require an authenticated introspection. No tool list is fabricated below.
+deployment:
+  mode: remote
+  endpoint: https://mcp.uniqode.com/mcp
+  install: null
+  package: null
+  auth: oauth
+  verified: probed
+server:
+  name: uniqode
+  transport: http
+  url: https://mcp.uniqode.com/mcp
+  runtime: uvicorn (observed via Server response header)
+  authorization_server: https://auth.uniqode.com/
+  protected_resource_metadata: https://mcp.uniqode.com/.well-known/oauth-protected-resource
+  scopes:
+  - openid
+  - profile
+  - email
+  - offline_access
+  - read:analytics
+  - read:organizations
+  bearer_methods_supported: [header]
+  ref_scopes: scopes/beaconstac-scopes.yml
+introspection:
+  tools_list:
+    attempted: '2026-08-13'
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    response: '{"error": "invalid_token", "error_description": "Authentication required"}'
+  initialize:
+    attempted: '2026-08-13'
+    http_status: 401
+  note: >-
+    Live tool schemas are auth-gated. Uniqode publishes no llms.txt tool list and no MCP
+    documentation page, so no per-tool inputSchema is recorded. Tool names and input contracts
+    require an authenticated introspection against an account with a Uniqode API entitlement.
+tools: []
+# Capability areas the vendor states the connector covers. These are the PROVIDER'S WORDS from a
+# dated press release, not observed tool names — recorded as claims, deliberately not as tools[].
+advertised_capabilities:
+  source: >-
+    Uniqode press release, 2026-07-30 — "Uniqode's MCP Connector lets users manage QR Codes and
+    analytics directly from Claude."
+  claims:
+  - Create QR Codes individually or in bulk
+  - Retrieve analytics data
+  - Access organization-wide reporting
+  scope_corroboration: >-
+    The probed scope set (read:analytics, read:organizations) is consistent with the analytics and
+    organization-reporting claims; no scope in the published set grants QR Code writes, so the
+    "create QR Codes" claim is not corroborated by the anonymous discovery document.
+roadmap:
+  - claim: A connector for ChatGPT is planned within the year.
+    source: Uniqode press release, 2026-07-30

@@ -1,17 +1,61 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: searched
-source: https://apidocs.uniqode.com/, https://status.uniqode.com/
+source: >-
+  https://apidocs.uniqode.com/, https://status.uniqode.com/, https://www.uniqode.com/security,
+  https://www.uniqode.com/product-updates
 versioning:
   scheme: uri-path
   current: "2.0"
-  base: https://api.uniqode.com/api/2.0/
+  bases:
+  - https://api.uniqode.com/api/2.0/
+  - https://api.uniqode.com/reporting/2.0/
   docs: https://apidocs.uniqode.com/
+  policy_url: null
+  notes: >-
+    Version 2.0 is the only version reachable in the published collection. No version-support
+    window, no v1 sunset record, and no policy for how a 3.0 would be introduced.
 deprecation:
   policy_url: null
   sunset_header: null
-  notes: No public deprecation/sunset policy documented.
+  deprecation_header: null
+  rfc8594: false
+  notes: >-
+    No deprecation or sunset policy is published, and no Deprecation/Sunset response headers are
+    documented. Deprecation is communicated only in prose, inside the API reference itself.
+deprecated_operations:
+- resource: BulkQRCode
+  path: /api/2.0/bulkqrcodes/
+  operations: [list, create, retrieve, update]
+  replacement: /api/2.0/bulkqrcodesv2/
+  announced: in-reference prose only
+  sunset_date: null
+  evidence: >-
+    "Bulk QR Codes [Deprecated]" folder in the published Postman collection —
+    "This object has been deprecated. Please use Bulk QR codes V2 under the QR codes section
+    to generate QR codes in bulk."
+  source: collections/beaconstac-uniqode-api.postman_collection.json
+deprecated_operation_count: 4
 sla:
   url: null
-  uptime_target: null
+  uptime_target: "99.9%"
+  uptime_target_alt: "99.99%"
+  notes: >-
+    Two different uptime figures are published on the provider's own pages — 99.9% on
+    /security (and in llms.txt) and 99.99% on the Digital Business Card pricing block. Neither
+    is backed by a published SLA document or a service-credit schedule.
 status_page: https://status.uniqode.com/
-deprecated_operations: []
+support:
+  channels: [live chat, email, phone]
+  email: hello@uniqode.com
+  first_response_time_claim: 3 minutes
+  average_resolution_claim: 1 day
+  source: https://www.uniqode.com/security
+changelog:
+  url: https://www.uniqode.com/product-updates
+  ref: changelog/beaconstac-changelog.yml
+entitlement_lifecycle:
+  api_available_from_plan: Pro
+  note: >-
+    "For your QR Codes to work, the account linked to them has to stay active." Dynamic QR Codes
+    and cards stop resolving when the subscription lapses — an availability dependency that is
+    part of this API's lifecycle, not just its billing.

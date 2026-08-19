@@ -1,0 +1,48 @@
+generated: '2026-08-13'
+method: generated
+source: collections/beaconstac-uniqode-api.postman_collection.json
+# Uniqode publishes no OpenAPI, so these skills are grounded in the METHOD + PATH of requests
+# that exist verbatim in the provider's own published Postman collection (96 requests). Every
+# path below was checked against that file. There are no operationIds in a Postman collection,
+# so `operations[]` carries `METHOD /path` instead — the same verified-against-the-contract
+# discipline, expressed in the units this provider actually publishes.
+grounding:
+  contract: collections/beaconstac-uniqode-api.postman_collection.json
+  contract_type: Postman Collection v2.1
+  operation_unit: method+path
+  base: https://api.uniqode.com/api/2.0/
+skills:
+- file: beaconstac-create-and-track-dynamic-qr.md
+  name: Create a dynamic QR Code and read its scan analytics
+  api: collections/beaconstac-uniqode-api.postman_collection.json
+  operations:
+  - POST /api/2.0/qrcodes/
+  - GET /api/2.0/qrcodes/{id}/
+  - GET /api/2.0/qrcodes/{id}/download/
+  - PUT /api/2.0/qrcodes/{id}/
+  - POST /reporting/2.0/?method=Products.getPerformance
+- file: beaconstac-bulk-qr-generation.md
+  name: Generate QR Codes in bulk from a CSV
+  api: collections/beaconstac-uniqode-api.postman_collection.json
+  operations:
+  - POST /api/2.0/bulkqrcodesv2/csv-validation/
+  - POST /api/2.0/bulkqrcodesv2/
+  - GET /api/2.0/media/{id}/
+- file: beaconstac-issue-cards-and-collect-leads.md
+  name: Issue Digital Business Cards for a team and collect leads
+  api: collections/beaconstac-uniqode-api.postman_collection.json
+  operations:
+  - POST /api/2.0/dbc/csv-validation/
+  - POST /api/2.0/dbc/bulkcreate/
+  - GET /api/2.0/dbc/
+  - GET /api/2.0/dbc/{id}/download/
+  - GET /api/2.0/lead/
+  - POST /api/2.0/lead/export/
+- file: beaconstac-subscribe-to-webhooks.md
+  name: Subscribe to Uniqode events with a webhook
+  api: collections/beaconstac-uniqode-api.postman_collection.json
+  operations:
+  - POST /api/2.0/organizationwebhooks/
+  - GET /api/2.0/organizationwebhooks/
+  - GET /api/2.0/organizationwebhooks/{id}/
+  - PUT /api/2.0/organizationwebhooks/{id}/

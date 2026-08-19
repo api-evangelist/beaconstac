@@ -1,34 +1,122 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: searched
-source: https://apidocs.uniqode.com/, https://www.uniqode.com/qr-code-generator/api
-# Cross-cutting request/response semantics captured from the published API documentation.
-# No OpenAPI is available, so fields not documented publicly are left null rather than guessed.
+source: >-
+  https://apidocs.uniqode.com/ (published Postman collection),
+  https://docs.uniqode.com/en/articles/6064771-getting-started-with-static-and-dynamic-qr-code-api,
+  probes of https://api.uniqode.com/ and https://mcp.uniqode.com/mcp
+# Cross-cutting request/response semantics. UPGRADE over the 2026-07-18 round, which had
+# pagination: null and could not see the collection. Fields Uniqode genuinely does not publish
+# are still left null rather than guessed.
+style:
+  architecture: REST, resource-oriented URLs
+  request_encoding: form-encoded (also accepts application/json; the docs' own example sends
+    Content-Type application/json)
+  response_encoding: JSON
+  transport: HTTPS only — "Calls made over plain HTTP will fail"
+  trailing_slash: required — every documented path ends in a trailing slash (Django REST Framework)
+  framework_signal: >-
+    api.uniqode.com returns Django REST Framework's canonical envelope
+    {"detail": "Authentication credentials were not provided."} on an unauthenticated request.
 authentication:
   style: api-key
   header: Authorization
   format: "Token <API_KEY>"
-  additional: Organization ID required alongside the token
+  additional: organization query parameter (ORG_ID) on org-scoped resources
+  mcp: OAuth 2.0 bearer on https://mcp.uniqode.com/mcp
   ref: authentication/beaconstac-authentication.yml
 versioning:
   style: uri-path
   current: "2.0"
-  base: https://api.uniqode.com/api/2.0/
+  bases:
+  - https://api.uniqode.com/api/2.0/        # resource API
+  - https://api.uniqode.com/reporting/2.0/  # analytics/reporting API
+  collection_variables: [API_BASE, API_VERSION, REPORTING_BASE, REPORTING_VERSION]
   ref: lifecycle/beaconstac-lifecycle.yml
 idempotency:
-  supported: null
-  notes: No idempotency-key contract is documented in the public API reference.
+  supported: false
+  header: null
+  notes: >-
+    No idempotency-key header, parameter or retry-safety contract appears anywhere in the
+    published collection, the help centre, or the API reference. Repeated POSTs to
+    /api/2.0/qrcodes/ create duplicate QR Codes with no documented dedupe.
 pagination:
-  style: null
-  notes: Documented list endpoints exist (QR Codes, landing pages, forms) but the pagination scheme is not published outside the authenticated reference.
+  style: page-number
+  parameters:
+    page: 1-based page index
+    page_size: items per page
+  observed_on:
+  - GET /api/2.0/dbc/?organization={org}&page_size=10&page=1
+  - GET /api/2.0/dbc/templates/?organization={org}&page_size=50&page=1
+  - GET /api/2.0/forms/{id}/responses/?page_size=5
+  response_fields: null
+  notes: >-
+    The page/page_size parameters are used in the provider's own published requests. The response
+    envelope field names (count/next/previous/results in a stock DRF paginator) are NOT published,
+    so they are not asserted here.
+filtering:
+  style: django-orm-lookup query params
+  examples:
+  - campaign__content_type=13
+  - name__icontains=<term>
+  - card_owner__is={{USER_ID}}
+  - state=A
+  - since / until (epoch millis) + timezone on form responses
+multi_tenancy:
+  parameter: organization
+  location: query
+  notes: Organization-scoped resources require the organization id; it is the primary tenancy
+    boundary and also the scope for webhooks and analytics.
 webhooks:
   supported: true
-  operations: [create, list, retrieve, update]
+  event_count: 15
   ref: asyncapi/beaconstac-webhooks.yml
+bulk:
+  pattern: two-step CSV/XLSX upload — POST .../csv-validation/ then POST the create endpoint
+  endpoints:
+  - /api/2.0/bulkqrcodesv2/csv-validation/
+  - /api/2.0/bulkqrcodesv2/
+  - /api/2.0/dbc/csv-validation/
+  - /api/2.0/dbc/bulkcreate/
+  - /api/2.0/dbc/bulkdelete/list/
+file_uploads:
+  pattern: >-
+    Create a Media object first; the response returns an AWS S3 policy and the fields needed to
+    upload. Upload to S3, then PUT the Media object to finalise.
+  ref: data-model/beaconstac-data-model.yml
+soft_delete:
+  pattern: >-
+    Activate/deactivate is modelled as PUT vs DELETE on a /activate/ sub-resource
+    (PUT = activate, DELETE = deactivate), moving `state` between A (active) and S (sleeping).
+    This is distinct from DELETE on the resource itself, which is a hard delete.
 request_tracing:
   header: null
+  notes: No request-id or correlation header is documented or observable anonymously.
 rate_limiting:
-  signaled: null
-  notes: No public rate-limit headers or quotas documented.
+  signaled: false
+  documented_limits: true
+  ref: rate-limits/beaconstac-rate-limits.yml
+  notes: Per-plan limits are published (10/25/100 req/sec); no response headers are documented.
 error_envelope:
-  format: null
-  notes: No public error schema / RFC 9457 problem+json confirmed.
+  format: non-standard
+  rfc9457: false
+  observed:
+  - surface: https://api.uniqode.com/
+    status: 401
+    body: '{"detail": "Authentication credentials were not provided."}'
+  - surface: https://mcp.uniqode.com/mcp
+    status: 401
+    body: '{"error": "invalid_token", "error_description": "Authentication required"}'
+    headers: 'WWW-Authenticate: Bearer error="invalid_token", resource_metadata=...'
+  ref: errors/beaconstac-problem-types.yml
+  notes: >-
+    "uses standard HTTP response codes" is the only error statement the provider publishes. The
+    two surfaces use two different error envelopes, and neither is application/problem+json.
+expansion:
+  supported: null
+  notes: Some list responses embed related data (place_data, tag_data, media_data, lead_owner) as
+    read-only fields, but no explicit expand/fields parameter is documented.
+metadata:
+  supported: true
+  field: meta
+  entities: [QRCode, QRCodeTemplate, FeedbackForm]
+  notes: A free-form `meta` object is documented on several resources.

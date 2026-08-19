@@ -1,21 +1,85 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: searched
-source: https://apidocs.uniqode.com/, https://www.uniqode.com/qr-code-generator/api
+source: https://apidocs.uniqode.com/ (published "Uniqode API" Postman collection, Webhook folder)
 spec_type: Webhooks
-# The Uniqode QR Code API documents a webhook management surface (no published AsyncAPI
-# document was found). Individual event-type names are behind the authenticated reference;
-# captured here is the documented webhook capability and its management operations.
+# UPGRADE over the 2026-07-18 round, which recorded "individual event-type names are behind the
+# authenticated reference" and events: []. They are not — Uniqode publishes the full event
+# catalogue in the Webhook folder description of its public Postman collection. Captured verbatim
+# below. Uniqode still publishes NO AsyncAPI document; none is fabricated here.
 webhooks:
   supported: true
-  management_operations:
-  - create
-  - list
-  - retrieve
-  - update
   docs: https://apidocs.uniqode.com/
+  endpoint: https://api.uniqode.com/api/2.0/organizationwebhooks/
+  scope: organization
   description: >-
-    Webhooks let an application subscribe to Uniqode events (e.g. QR Code scans, form
-    submissions) and receive HTTP callbacks. Webhooks are created, listed, retrieved, and
-    updated via the API. Delivered event-type schemas are documented in the authenticated
-    API reference.
-events: []
+    A webhook lets Uniqode push real-time information to another application. Webhooks are
+    registered per organization; a single webhook object carries one destination URL plus a set
+    of per-object-type event selections.
+  management_operations:
+  - operation: list
+    method: GET
+    path: /api/2.0/organizationwebhooks/
+  - operation: create
+    method: POST
+    path: /api/2.0/organizationwebhooks/
+  - operation: retrieve
+    method: GET
+    path: /api/2.0/organizationwebhooks/{id}/
+  - operation: update
+    method: PUT
+    path: /api/2.0/organizationwebhooks/{id}/
+  delete_documented: false
+  object:
+    id: integer — unique identifier
+    organization: string — organization the webhook belongs to
+    url: URL — the destination the webhook connects to
+    qr_code_events: object — events to trigger on QR Code objects
+    nfc_tag_events: object — events to trigger on NFC Tag objects
+    beacon_events: object — events to trigger on Beacon objects
+    geofence_events: object — events to trigger on Geofence objects
+    form_events: object — events to trigger on Form objects
+    maintainer: integer — user maintaining the webhook
+    created: timestamp
+    updated: timestamp
+event_groups:
+- group: qr_code_events
+  subject: QR Code
+  events: [create, update, delete, view]
+- group: nfc_tag_events
+  subject: NFC Tag
+  events: [update, view]
+- group: beacon_events
+  subject: Beacon
+  events: [update, delete, view, notification_sent]
+- group: geofence_events
+  subject: Geofence
+  events: [create, update, view, notification_sent]
+- group: form_events
+  subject: Feedback Form
+  events: [form_response_submitted]
+events:
+- {group: qr_code_events, name: create, subject: QR Code}
+- {group: qr_code_events, name: update, subject: QR Code}
+- {group: qr_code_events, name: delete, subject: QR Code}
+- {group: qr_code_events, name: view, subject: QR Code, note: fires on scan/view of the QR Code}
+- {group: nfc_tag_events, name: update, subject: NFC Tag}
+- {group: nfc_tag_events, name: view, subject: NFC Tag}
+- {group: beacon_events, name: update, subject: Beacon}
+- {group: beacon_events, name: delete, subject: Beacon}
+- {group: beacon_events, name: view, subject: Beacon}
+- {group: beacon_events, name: notification_sent, subject: Beacon}
+- {group: geofence_events, name: create, subject: Geofence}
+- {group: geofence_events, name: update, subject: Geofence}
+- {group: geofence_events, name: view, subject: Geofence}
+- {group: geofence_events, name: notification_sent, subject: Geofence}
+- {group: form_events, name: form_response_submitted, subject: Feedback Form}
+event_count: 15
+asyncapi:
+  published: false
+  note: >-
+    No AsyncAPI document is published on any Uniqode host. The event catalogue above is a
+    faithful capture of the provider's own documentation, not a generated spec.
+gaps:
+- No delivery payload schema is published for any event.
+- No signing/verification scheme, retry policy, or delivery-failure behaviour is documented.
+- No DELETE operation is documented for a registered webhook.

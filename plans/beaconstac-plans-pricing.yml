@@ -1,0 +1,119 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.uniqode.com/pricing
+docs: https://www.uniqode.com/pricing
+# Uniqode publishes named tiers for two product lines, but the numeric price table on
+# /pricing is rendered client-side (Webflow) and is NOT present in the served HTML. Every
+# figure below was read verbatim from text that IS served — the pricing FAQ and the developer
+# help-center article. Tiers whose price could not be read are recorded with price: null and
+# a note, never with a guessed number.
+plan_count: 9
+currency: USD
+billing:
+  periods: [annual]
+  monthly_available: false
+  note: >-
+    "We currently only offer annual subscription plans." Prices are quoted per month but billed
+    annually. All plans are billed in USD. Invoice billing is restricted to Business+.
+  trial: 14-day free trial
+  refund_policy: 30-day money-back guarantee
+  payment_methods: [Visa, MasterCard, American Express]
+product_lines:
+- product: QR Codes
+  pricing_url: https://www.uniqode.com/pricing
+  plans:
+  - name: Free
+    price: 0
+    currency: USD
+    period: month
+    includes: Static QR Codes only, unlimited creation
+    api_access: false
+    limits:
+      users: 1
+      dynamic_qr_codes: 0
+  - name: Starter
+    price: null
+    currency: USD
+    period: month
+    price_note: >-
+      Entry paid tier. The pricing FAQ states dynamic QR Codes "start with the basic $9/month
+      plan" and "a minimum of $9/month"; the FAQ does not name which tier that is, so $9 is
+      recorded as the published entry price rather than asserted as Starter's price.
+    published_entry_price: 9
+    api_access: false
+    limits:
+      users: 1
+  - name: Lite
+    price: null
+    currency: USD
+    period: month
+    api_access: false
+    limits:
+      users: 1
+      custom_domain: false
+  - name: Pro
+    price: null
+    currency: USD
+    period: month
+    api_access: true
+    limits:
+      users: 1
+      api_rate_limit: 10 requests/sec
+      api_quota: 250000 requests/month
+  - name: Plus
+    price: null
+    currency: USD
+    period: month
+    api_access: true
+    limits:
+      users: multiple
+      api_rate_limit: 25 requests/sec
+      api_quota: 500000 requests/month
+    add_ons:
+    - name: Custom domain
+      price: 2000
+      currency: USD
+      period: year
+      unit: per domain
+  - name: Business+
+    price: null
+    price_note: Custom / contact sales. Invoice billing available.
+    currency: USD
+    period: month
+    api_access: true
+    limits:
+      users: multiple
+      custom_domains: multiple
+      api_rate_limit: 100 requests/sec
+      api_quota: 2000000 requests/month
+- product: Digital Business Cards
+  pricing_url: https://www.uniqode.com/pricing?product=dbc
+  plans:
+  - name: Free
+    price: 0
+    currency: USD
+    period: month
+    includes: First digital business card
+  - name: Team
+    price: 6
+    currency: USD
+    period: month
+    unit: per user
+    billing: annual
+  - name: Business+
+    price: null
+    price_note: Custom pricing for advanced security, control and flexibility.
+    currency: USD
+overage:
+  policy: upgrade-only
+  note: >-
+    "In the event that you are running low on scans, you have to upgrade to the higher plan. You
+    will only have to pay the price difference in plans." There is no metered overage rate.
+    Scan limits reset annually, not monthly.
+unresolved:
+  - >-
+    Per-tier list prices for Starter, Lite, Pro, Plus and Business+ are not in the served HTML;
+    the /pricing plan cards and the #feature-table-qr comparison table are both client-rendered.
+  - >-
+    A "$49/month Core plan" is named in the pricing FAQ but no tier called Core appears in the
+    plan set; recorded here as an unreconciled published statement, not as a tier.

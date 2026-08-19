@@ -1,0 +1,66 @@
+generated: '2026-08-13'
+method: probed
+source: https://mcp.uniqode.com/.well-known/oauth-protected-resource
+docs: null
+# No OpenAPI is published, so derive-oauth-scopes.py has nothing to read. The scopes below are
+# NOT derived and NOT guessed — they were read verbatim from the two anonymous discovery
+# documents Uniqode serves. Uniqode publishes no human-readable scope reference page; the
+# `description` on each row is our plain-language reading of the scope name, marked as such.
+# The REST API (api.uniqode.com) has no scope surface at all — it uses a static account token.
+authorization_servers:
+- issuer: https://auth.uniqode.com/
+  metadata: well-known/beaconstac-oauth-authorization-server.json
+  authorization_endpoint: https://auth.uniqode.com/authorize
+  token_endpoint: https://auth.uniqode.com/oauth/token
+  registration_endpoint: https://auth.uniqode.com/oidc/register
+  revocation_endpoint: https://auth.uniqode.com/oauth/revoke
+  jwks_uri: https://auth.uniqode.com/.well-known/jwks.json
+  device_authorization_endpoint: https://auth.uniqode.com/oauth/device/code
+  code_challenge_methods_supported: [S256, plain]
+  dynamic_client_registration: true
+  platform: Auth0 on the uniqode.com custom identity domain
+protected_resources:
+- resource: https://mcp.uniqode.com/
+  metadata: well-known/beaconstac-oauth-protected-resource.json
+  spec: RFC 9728 OAuth 2.0 Protected Resource Metadata
+  bearer_methods_supported: [header]
+# Scopes the MCP protected resource declares (scopes_supported)
+scopes:
+- scope: openid
+  description: OIDC authentication; issues an ID token.
+  standard: true
+  sources: [https://mcp.uniqode.com/.well-known/oauth-protected-resource]
+- scope: profile
+  description: Standard OIDC profile claims (name, nickname, picture).
+  standard: true
+  sources: [https://mcp.uniqode.com/.well-known/oauth-protected-resource]
+- scope: email
+  description: Standard OIDC email + email_verified claims.
+  standard: true
+  sources: [https://mcp.uniqode.com/.well-known/oauth-protected-resource]
+- scope: offline_access
+  description: Issues a refresh token so the agent can act between interactive sessions.
+  standard: true
+  sources: [https://mcp.uniqode.com/.well-known/oauth-protected-resource]
+- scope: read:analytics
+  description: >-
+    Read access to scan/engagement analytics. Provider-specific; interpretation from the scope
+    name — Uniqode publishes no scope reference page defining it.
+  standard: false
+  interpretation: unverified-by-docs
+  sources: [https://mcp.uniqode.com/.well-known/oauth-protected-resource]
+- scope: read:organizations
+  description: >-
+    Read access to organization records and organization-wide reporting. Provider-specific;
+    interpretation from the scope name — no published definition.
+  standard: false
+  interpretation: unverified-by-docs
+  sources: [https://mcp.uniqode.com/.well-known/oauth-protected-resource]
+observations:
+- >-
+  The published MCP scope set is READ-ONLY. There is no write/create scope, so the press-release
+  claim that the connector can "create QR Codes individually or in bulk" is not reachable through
+  any scope Uniqode advertises anonymously.
+- >-
+  The authorization server advertises 13 grant types including password, implicit and
+  client_credentials (an Auth0 tenant default set), which is broader than an MCP client needs.

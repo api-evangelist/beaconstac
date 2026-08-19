@@ -1,26 +1,142 @@
-generated: '2026-07-18'
+generated: '2026-08-13'
 method: searched
-source: npm registry search (@uniqode scope)
-# No first-party server-side API client SDK (Python/JS/Go/etc.) was found on npm, PyPI,
-# RubyGems, NuGet, or crates.io for the Uniqode QR Code API — integrations are made
-# directly against the HTTP API. The one first-party published package is a client-side
-# Web Components library for Digital Business Card templates (see also components/).
+source: >-
+  registry.npmjs.org metadata endpoints, npm registry search,
+  api.github.com/orgs/{beaconstac,mobstac}
+# There is still NO first-party server-side API client SDK for the Uniqode REST API in any
+# language — npm, PyPI, RubyGems, NuGet, Maven Central, crates.io and pkg.go.dev were all
+# checked and none carries a Uniqode/Beaconstac HTTP client. Integrations are written directly
+# against the HTTP API or through the published Postman collection.
+# What DOES exist is a set of first-party npm packages published from the company's own npm
+# accounts (hackers-mobstac / *-beaconstac / *-mobstac — MobStac is the company's original name):
+# a Web Components card-template library, a QR rendering library, a design system, an Angular
+# library and an iOS proximity SDK. `version` + `published` on every row are read from
+# registry.npmjs.org, not from prose.
+sdk_for_rest_api: false
 packages:
 - language: javascript
   registry: npm
   name: "@uniqode/card-templates"
   url: https://www.npmjs.com/package/@uniqode/card-templates
   version: 1.0.5
+  published: '2026-01-20'
+  first_published: '2025-12-11'
   install: npm install @uniqode/card-templates
   repository: https://github.com/uniqode/card-templates
-  description: Universal Web Components library for Digital Business Card templates. Framework-agnostic, customizable, production-ready.
+  npm_maintainers: [utkarshbharti]
+  description: Universal Web Components library for Digital Business Card templates.
+    Framework-agnostic, customizable, production-ready.
   kind: web-components
   official: true
+  note: >-
+    The linked GitHub repository github.com/uniqode/card-templates returns 404 — there is no
+    public `uniqode` GitHub org, so the source for this package is not actually published.
 - language: javascript
   registry: npm
   name: uniqode-card-templates
   url: https://www.npmjs.com/package/uniqode-card-templates
+  version: 1.1.0
+  published: '2026-08-04'
   install: npm install uniqode-card-templates
+  repository: https://github.com/uniqode/card-templates
+  npm_maintainers: [hackers-mobstac]
   description: Unscoped mirror of the Universal Web Components digital business card template library.
   kind: web-components
   official: true
+  note: >-
+    CURRENCY DIVERGENCE — the unscoped mirror is AHEAD of the scoped package it mirrors
+    (1.1.0 / 2026-08-04 vs 1.0.5 / 2026-01-20). A consumer following the scoped `@uniqode/`
+    name, which reads as the canonical one, is seven months and one minor version behind.
+- language: javascript
+  registry: npm
+  name: mobstac-awesome-qr
+  url: https://www.npmjs.com/package/mobstac-awesome-qr
+  version: 4.2.2
+  published: '2025-12-18'
+  install: npm install mobstac-awesome-qr
+  repository: https://github.com/mobstac/mobstac-awesome-qr
+  npm_maintainers: [hackers-mobstac]
+  description: MobStac Awesome QR code library — the QR rendering engine behind Uniqode's
+    customization options (dot/eye shapes, gradients, logos, frames).
+  kind: rendering-library
+  official: true
+  language_impl: TypeScript
+  source_last_push: '2026-07-20'
+- language: javascript
+  registry: npm
+  name: ohana-design-system
+  url: https://www.npmjs.com/package/ohana-design-system
+  version: 2.0.0
+  published: '2024-11-13'
+  install: npm install ohana-design-system
+  repository: null
+  npm_maintainers: [hackers-mobstac]
+  description: Ohana Design System — Uniqode's internal component/design system, published publicly.
+  kind: design-system
+  official: true
+- language: javascript
+  registry: npm
+  name: beaconstac
+  url: https://www.npmjs.com/package/beaconstac
+  version: 0.0.96
+  published: '2022-03-09'
+  install: npm install beaconstac
+  repository: null
+  npm_maintainers: [hackers-mobstac]
+  description: Angular library published under the company's former product name. No README
+    beyond the Angular CLI boilerplate; no documented relationship to the HTTP API.
+  kind: angular-library
+  official: true
+  status: stale
+  note: >-
+    Last published 2022-03-09 — more than four years before this capture, and under a brand
+    (Beaconstac) the company retired when it became Uniqode. It is NOT an API client and should
+    not be mistaken for one.
+- language: javascript
+  registry: npm
+  name: beaconstac-chartjs-node-canvas
+  url: https://www.npmjs.com/package/beaconstac-chartjs-node-canvas
+  version: 4.1.6
+  published: '2022-12-16'
+  install: npm install beaconstac-chartjs-node-canvas
+  repository: https://github.com/SeanSobey/ChartjsNodeCanvas
+  npm_maintainers: [shreedhar-beaconstac]
+  description: Company-published fork of the third-party ChartjsNodeCanvas renderer.
+  kind: fork
+  official: true
+  first_party_original: false
+  status: stale
+- language: swift
+  registry: npm
+  name: nearbee-ios
+  url: https://www.npmjs.com/package/nearbee-ios
+  version: 1.0.0
+  published: '2018-11-13'
+  repository: https://github.com/Beaconstac/NearBee-iOS-SDK
+  npm_maintainers: [amit-mobstac, sachinmobstac, hackers-mobstac]
+  description: NearBee proximity-marketing SDK for Eddystone BLE beacons.
+  kind: mobile-sdk
+  official: true
+  status: abandoned
+  note: >-
+    Published 2018; the linked GitHub repo is not reachable in the public Beaconstac org
+    (which now has 0 public repositories). The Beacon/NFC/Geofence product line it serves is
+    still referenced by the webhook event catalogue but has no CRUD surface in the API.
+registries_checked:
+- {registry: npm, result: 7 first-party packages found}
+- {registry: pypi, result: none — pypi.org/pypi/uniqode and /beaconstac both 404}
+- {registry: rubygems, result: none}
+- {registry: nuget, result: none}
+- {registry: maven-central, result: none}
+- {registry: crates.io, result: none}
+- {registry: pkg.go.dev, result: none}
+source_repositories:
+- {org: https://github.com/mobstac, public_repos: 2, active: true,
+   note: mobstac-awesome-qr (TypeScript, pushed 2026-07-20) is the one live public repo}
+- {org: https://github.com/beaconstac, public_repos: 0, active: false,
+   note: The org exists and links to uniqode.com but publishes nothing.}
+- {org: https://github.com/uniqode, exists: false,
+   note: 404 — referenced by two published packages as their source, but never created.}
+third_party:
+- {name: "@pipedream/beaconstac", registry: npm, official: false, publisher: Pipedream}
+- {name: "@keystrokehq/beaconstac", registry: npm, official: false, publisher: Keystroke}

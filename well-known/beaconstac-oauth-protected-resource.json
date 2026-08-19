@@ -1,0 +1,1 @@
+{"resource":"https://mcp.uniqode.com/","authorization_servers":["https://auth.uniqode.com/"],"scopes_supported":["openid","profile","email","offline_access","read:analytics","read:organizations"],"bearer_methods_supported":["header"]}

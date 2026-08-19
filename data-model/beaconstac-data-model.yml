@@ -1,0 +1,150 @@
+generated: '2026-08-13'
+method: derived
+source: collections/beaconstac-uniqode-api.postman_collection.json
+docs: https://apidocs.uniqode.com/
+# Entity-relationship graph derived from the provider's published "Uniqode API" Postman
+# collection (96 requests, 11 resource families). Uniqode publishes no OpenAPI, so the fields
+# and relationships below come from the object tables the collection's own folder descriptions
+# document. Only fields Uniqode documents are listed; nothing is inferred beyond the id-reference
+# links the object tables state explicitly.
+base_url: https://api.uniqode.com/api/2.0/
+id_scheme:
+  type: integer
+  prefixes: none
+  note: All resources use bare auto-increment integer ids. There are no typed/prefixed ids, so an
+    id alone does not identify its entity type — an agent must track the resource path.
+root_entity: Organization
+entities:
+- name: Organization
+  path: /organizations/
+  description: The root reference for every other object in an account. Supports parent/child
+    hierarchies for Enterprise and Reseller accounts.
+  key_fields: [id, name, parent, reseller_access, whitelabel_access, custom_domain, cname,
+    feature_permissions, domains, ga_code, fb_pixel_id, google_conversion_id, created, updated]
+  operations: [list, create, retrieve, update, counts]
+- name: User
+  path: /users/
+  key_fields: [id, first_name, last_name, username, user_group, customer_plan, subscription_state,
+    is_active, stripe_id, timezone, organization, last_login, date_joined, created, updated]
+  operations: [list, create, retrieve, update]
+- name: QRCode
+  path: /qrcodes/
+  description: Static (qr_type=1) or dynamic (qr_type=2) QR Code. Dynamic codes carry a Campaign.
+  key_fields: [id, name, qr_type, url, state, organization, place, maintainer, tags, template,
+    campaign, attributes, fields_data, view_limit, domain, location_enabled, password, meta,
+    additional_params, created, updated, heartbeat]
+  enums:
+    qr_type: {1: static, 2: dynamic}
+    state: {A: active, S: sleeping}
+    domain: {1: qr.tapnscan.me, 2: qrcodes.pro}
+  operations: [list, create, retrieve, update, delete, download, activate, deactivate]
+- name: QRCodeTemplate
+  path: /qrtemplates/
+  description: Preset design applied to QR Codes. Every organization has one default template.
+  key_fields: [id, name, default, organization, maintainer, meta, margin, dotScale, dataPattern,
+    colorDark, colorLight, gradientType, eyeBallShape, eyeFrameShape, logoImage, backgroundImage,
+    frameStyle, frameText, created, updated]
+  operations: [list, create, retrieve, update, delete]
+- name: Campaign
+  description: The behaviour object attached to a dynamic QR Code. Not exposed as a standalone
+    top-level resource in the published collection — it is created inline on the QR Code.
+  campaign_types: [Custom Url, Landing Page, Feedback Form, Schedule, App Links,
+    Multi-language Content, vCard Plus, Social Media, Facebook Page, Coupon, Business Card, PDF,
+    Menu, Phone Call, Phone SMS, Email]
+  operations: []
+- name: BulkQRCodeV2
+  path: /bulkqrcodesv2/
+  description: CSV/XLSX bulk QR Code generation, with a separate csv-validation step.
+  key_fields: [qr_type, qr_data_type, attributes, file]
+  operations: [create, csv-validation]
+- name: BulkQRCode
+  path: /bulkqrcodes/
+  status: deprecated
+  deprecation_note: "This object has been deprecated. Please use Bulk QR codes V2 under the QR
+    codes section to generate QR codes in bulk."
+  key_fields: [id, name, attributes, qr_type, qr_data_type, organization, storage_url, media,
+    media_data, maintainer, created, updated]
+  operations: [list, create, retrieve, update]
+- name: DigitalBusinessCard
+  path: /dbc/
+  description: A digital business card. A card with is_template=true is a card template.
+  key_fields: [id, url, state, first_name, last_name, organization, company, designation, summary,
+    website, logo_url, user_image_url, customizations, social_links, phone_v2, email_v2,
+    address_v2, website_v2, pronouns_v2, autodownload_v2, is_template, card_owner]
+  enums:
+    state: {A: active, S: sleeping}
+  operations: [list, create, retrieve, update, delete, activate, deactivate, download,
+    bulkcreate, bulkdelete, csv-validation, walletpass]
+- name: Lead
+  path: /lead/
+  description: A contact captured from a Digital Business Card exchange or form.
+  key_fields: [id, first_name, last_name, email, company, phone, designation, notes, organization,
+    dbc, lead_owner, creation_source, location, source_url, created]
+  operations: [list, delete, export]
+- name: Tag
+  path: /tags/
+  key_fields: [id, name, color, organization, maintainer, created, updated]
+  operations: [list, create, retrieve, update, delete]
+- name: Place
+  path: /places/
+  key_fields: [id, name, organization, latitude, longitude, place_id, address, beacons,
+    beacon_count, default_place, business_icon_url, business_cover_url, business_color,
+    created, updated]
+  operations: [list, create, retrieve, update]
+- name: FeedbackForm
+  path: /forms/
+  key_fields: [id, title, form_id, default, form_type, form_structure, sms_structure,
+    email_structure, url, form_response_count, organization, maintainer, meta, created, updated]
+  operations: [list, create, retrieve, update, responses]
+- name: Media
+  path: /media/
+  description: File upload. Create the Media object first to receive the S3 upload policy, upload,
+    then update the object.
+  key_fields: [id, organization, maintainer, name, url, status, visible, s3_object_key,
+    content_type, typeform_compatible, typeform_url, created, modified]
+  operations: [list, create, retrieve, update]
+- name: Webhook
+  path: /organizationwebhooks/
+  key_fields: [id, organization, url, qr_code_events, nfc_tag_events, beacon_events,
+    geofence_events, form_events, maintainer, created, updated]
+  operations: [list, create, retrieve, update]
+  ref: asyncapi/beaconstac-webhooks.yml
+- name: Analytics
+  path: /reporting/2.0/
+  style: rpc
+  description: Not a CRUD resource. A single reporting endpoint selected by a `method` query
+    parameter, scoped by `organization`, with from/to epoch-millis and product_type in the body.
+  methods: [Products.getPerformance, Products.getOsDistribution, Products.getCityDistribution,
+    Products.getLocationDetail, Products.getVisitorDistribution, Products.getTimeOfDayDistribution,
+    Csv.getLocationData]
+  product_types: {qr: QR Code, nfc: NFC Tag, geofence: Geofence, beacon: Beacon}
+  response_shape: '{"points": [...], "columns": [...]}'
+relationships:
+- {from: Organization, to: Organization, kind: has_many, via: parent, note: parent/child org tree}
+- {from: Organization, to: User, kind: has_many, via: organization}
+- {from: Organization, to: QRCode, kind: has_many, via: organization}
+- {from: Organization, to: QRCodeTemplate, kind: has_many, via: organization}
+- {from: Organization, to: DigitalBusinessCard, kind: has_many, via: organization}
+- {from: Organization, to: Tag, kind: has_many, via: organization}
+- {from: Organization, to: Place, kind: has_many, via: organization}
+- {from: Organization, to: FeedbackForm, kind: has_many, via: organization}
+- {from: Organization, to: Media, kind: has_many, via: organization}
+- {from: Organization, to: Webhook, kind: has_many, via: organization}
+- {from: Organization, to: Lead, kind: has_many, via: organization}
+- {from: QRCode, to: Campaign, kind: has_one, via: campaign, note: required when qr_type=2}
+- {from: QRCode, to: QRCodeTemplate, kind: belongs_to, via: template}
+- {from: QRCode, to: Place, kind: belongs_to, via: place}
+- {from: QRCode, to: User, kind: belongs_to, via: maintainer}
+- {from: QRCode, to: Tag, kind: has_many, via: tags}
+- {from: DigitalBusinessCard, to: Lead, kind: has_many, via: dbc}
+- {from: DigitalBusinessCard, to: User, kind: belongs_to, via: card_owner}
+- {from: Lead, to: User, kind: belongs_to, via: lead_owner}
+- {from: BulkQRCode, to: Media, kind: belongs_to, via: media}
+- {from: Place, to: Beacon, kind: has_many, via: beacons, note: Beacon is referenced by Place and
+    by webhook events but has no documented CRUD surface in the published collection}
+- {from: FeedbackForm, to: QRCode, kind: referenced_by, via: campaign, note: a Feedback Form
+    campaign type binds a form to a dynamic QR Code}
+coverage:
+  entities: 16
+  relationships: 22
+  source_requests: 96
