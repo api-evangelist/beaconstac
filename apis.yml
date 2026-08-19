@@ -32,7 +32,7 @@ accessModel:
   - rate-limits
   generated: '2026-08-13'
   method: searched
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-08-13'
 image: https://cdn.prod.website-files.com/6669ecc72092c5122374cf32/6731094d55afbe708065f595_uniqode-opengraph.png
