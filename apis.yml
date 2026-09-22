@@ -47,6 +47,9 @@ specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-08-13'
 image: https://cdn.prod.website-files.com/6669ecc72092c5122374cf32/6731094d55afbe708065f595_uniqode-opengraph.png
+x-docs-platform: postman
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-20
 tags:
 - Company
 - Big Data
