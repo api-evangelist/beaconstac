@@ -45,7 +45,7 @@ accessModel:
   method: searched
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-08-13'
+modified: '2026-10-06'
 image: https://cdn.prod.website-files.com/6669ecc72092c5122374cf32/6731094d55afbe708065f595_uniqode-opengraph.png
 x-docs-platform: postman
 x-docs-platform-confidence: high
@@ -123,6 +123,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://www.uniqode.com/blog/feed
+  type: BlogRSS
 - type: Website
   url: https://www.uniqode.com
 - type: DeveloperPortal
