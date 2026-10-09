@@ -59,3 +59,21 @@ advertised_capabilities:
 roadmap:
 - claim: A connector for ChatGPT is planned within the year.
   source: Uniqode press release, 2026-07-30
+rfc9728:
+  endpoint: https://mcp.uniqode.com/mcp
+  metadata_url: https://mcp.uniqode.com/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.uniqode.com/
+    authorization_servers:
+    - https://auth.uniqode.com/
+    scopes_supported:
+    - openid
+    - profile
+    - email
+    - offline_access
+    bearer_methods_supported:
+    - header
